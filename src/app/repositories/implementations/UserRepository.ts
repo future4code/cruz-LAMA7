@@ -26,4 +26,8 @@ export class UserRepository extends BaseRepository implements IUsersReposity {
 
     return User.toUserModel(result[0])
   }
+
+  public async destroy(): Promise<void> {
+    this.destroy()
+  }
 }
