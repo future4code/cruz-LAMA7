@@ -4,4 +4,5 @@ export interface IUsersReposity {
   save(user: User): Promise<void>
   findByEmail(email: string): Promise<User>
   find(id: string): Promise<User>
+  destroy(): Promise<void>
 }

@@ -1,8 +1,9 @@
-import { User } from '../../entities/User'
-import { IUsersReposity } from '../../repositories/IUsersRepository'
-import { Authenticator } from '../../services/Authenticator'
-import { HashManager } from '../../services/HashManager'
-import { IdGenerator } from '../../services/IdGenerator'
+import { User } from '../../../entities/User'
+import { IUsersReposity } from '../../../repositories/IUsersRepository'
+import { APIError } from '../../../services/APIError'
+import { Authenticator } from '../../../services/Authenticator'
+import { HashManager } from '../../../services/HashManager'
+import { IdGenerator } from '../../../services/IdGenerator'
 import {
   ICreateUserRequestDTO,
   ICreateUserResponseDTO,
@@ -23,10 +24,18 @@ export class CreateUserUseCase {
     const message = 'Sucess!'
     const validData: ICreateUserValidDataDTO = this.validator.validate(data)
 
+    const emailExist = await this.usersRepository.findByEmail(validData.email)
+
+    if (emailExist) {
+      throw APIError.badRequest('Email already registered')
+    }
+
     const id = this.idGenerator.generate()
     const passwordHash = await this.hashManager.hash(validData.password)
+
     const user = new User({ ...validData, password: passwordHash }, id)
     this.usersRepository.save(user)
+    this.usersRepository.destroy()
 
     const token = this.authenticator.generateToken({
       id: user.id,
