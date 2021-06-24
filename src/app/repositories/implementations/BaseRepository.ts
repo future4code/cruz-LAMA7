@@ -1,4 +1,7 @@
+import dotenv from 'dotenv'
 import { default as knex, default as Knex } from 'knex'
+
+dotenv.config()
 
 export abstract class BaseRepository {
   private static connection: Knex | null = null
@@ -8,11 +11,12 @@ export abstract class BaseRepository {
       BaseRepository.connection = knex({
         client: 'mysql',
         connection: {
-          host: process.env.DB_HOST,
+          host: String(process.env.DB_HOST),
+          user: String(process.env.DB_USER),
+          password: String(process.env.DB_PASSWORD),
+          database: String(process.env.DB_SCHEMA),
           port: 3306,
-          user: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.DB_DATABASE_NAME,
+          multipleStatements: true,
         },
       })
     }
