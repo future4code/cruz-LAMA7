@@ -3,7 +3,7 @@ import { IUsersReposity } from '../IUsersRepository'
 import { BaseRepository } from './BaseRepository'
 
 export class UserRepository extends BaseRepository implements IUsersReposity {
-  private static TABLE_NAME = ''
+  private static TABLE_NAME = 'lama_usuarios'
   private connection = this.getConnection()
   private userTable = () => this.connection(UserRepository.TABLE_NAME)
 
