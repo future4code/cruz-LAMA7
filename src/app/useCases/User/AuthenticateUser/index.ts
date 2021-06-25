@@ -1,25 +1,24 @@
-import { UserRepository } from '../../repositories/implementations/UserRepository'
-import { Authenticator } from '../../services/Authenticator'
-import { HashManager } from '../../services/HashManager'
-import { IdGenerator } from '../../services/IdGenerator'
-import { CreateUserController } from './CreateUserController'
-import { CreateUserUseCase } from './CreateUserUseCase'
-import { CreateUserValidator } from './CreateUserValidator'
+import { UserRepository } from '../../../repositories/implementations/UserRepository'
+import { Authenticator } from '../../../services/Authenticator'
+import { HashManager } from '../../../services/HashManager'
+import { AuthenticateUserController } from './AuthenticateUserController'
+import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
+import { AuthenticateUserValidator } from './AuthenticateUserValidator'
 
 const usersRepository = new UserRepository()
-const createUserValidator = new CreateUserValidator()
-const idGenerator = new IdGenerator()
+const authenticateUserValidator = new AuthenticateUserValidator()
 const hashManager = new HashManager()
 const authenticator = new Authenticator()
 
-const createUsersUseCase = new CreateUserUseCase(
+const authenticateUsersUseCase = new AuthenticateUserUseCase(
   usersRepository,
-  createUserValidator,
-  idGenerator,
+  authenticateUserValidator,
   hashManager,
   authenticator
 )
 
-const createUserController = new CreateUserController(createUsersUseCase)
+const authenticateUserController = new AuthenticateUserController(
+  authenticateUsersUseCase
+)
 
-export { createUsersUseCase, createUserController }
+export { authenticateUsersUseCase, authenticateUserController }

@@ -1,4 +1,4 @@
-import { UserRole } from '../../entities/User'
+import { UserRole } from '../../../entities/User'
 
 export interface ICreateUserRequestDTO {
   name: any

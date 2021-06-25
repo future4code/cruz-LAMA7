@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express'
+import { authenticateUserController } from '../useCases/User/AuthenticateUser'
 import { createUserController } from '../useCases/User/CreateUser'
 
 const userRouter = express.Router()
@@ -8,7 +9,7 @@ userRouter.post('/signup', (req: Request, res: Response) => {
 })
 
 userRouter.post('/login', (req: Request, res: Response) => {
-  return res.send('login')
+  return authenticateUserController.handle(req, res)
 })
 
 export { userRouter }
