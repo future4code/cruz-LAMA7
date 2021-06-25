@@ -1,25 +1,22 @@
-import { UserRepository } from '../../repositories/implementations/UserRepository'
-import { Authenticator } from '../../services/Authenticator'
-import { HashManager } from '../../services/HashManager'
-import { IdGenerator } from '../../services/IdGenerator'
-import { CreateUserController } from './CreateUserController'
-import { CreateUserUseCase } from './CreateUserUseCase'
-import { CreateUserValidator } from './CreateUserValidator'
+import { BandRepository } from '../../../repositories/implementations/BandRepository'
+import { Authenticator } from '../../../services/Authenticator'
+import { IdGenerator } from '../../../services/IdGenerator'
+import { CreateBandController } from './CreateBandController'
+import { CreateBandUseCase } from './CreateBandUseCase'
+import { CreateBandValidator } from './CreateBandValidator'
 
-const usersRepository = new UserRepository()
-const createUserValidator = new CreateUserValidator()
+const bandsRepository = new BandRepository()
+const createBandValidator = new CreateBandValidator()
 const idGenerator = new IdGenerator()
-const hashManager = new HashManager()
 const authenticator = new Authenticator()
 
-const createUsersUseCase = new CreateUserUseCase(
-  usersRepository,
-  createUserValidator,
+const createBandsUseCase = new CreateBandUseCase(
+  bandsRepository,
+  createBandValidator,
   idGenerator,
-  hashManager,
   authenticator
 )
 
-const createUserController = new CreateUserController(createUsersUseCase)
+const createBandController = new CreateBandController(createBandsUseCase)
 
-export { createUsersUseCase, createUserController }
+export { createBandsUseCase, createBandController }
