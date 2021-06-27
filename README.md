@@ -4,4 +4,4 @@ Como você deve saber muito bem, o nosso querido chefinho Astrodev é uma pessoa
 Para isso já deixamos algumas tabelas prontas para vocês não precisarem se preocupar com a modelagem do banco. Deixamos também um template do projeto já com a estrutura da parte de usuários. Vocês podem usá-las a vontade, mas, se quiser fazer do zero sem esse auxílio, também pode.
 
 FAZENDO CASE COMPASSO UOL: 
-Link repositório Paula Lopes: <a href=“https://github.com/paula-lopes/compasso-uol“>Repositório Paula Lopes Compasso Uol</a>
+Link repositório Paula Lopes:[Compasso uol Paula Lopes repositório](https://github.com/paula-lopes/compasso-uol)
