@@ -1,5 +1,5 @@
 import { User } from '../../../entities/User'
-import { IUsersReposity } from '../../../repositories/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { APIError } from '../../../services/APIError'
 import { Authenticator } from '../../../services/Authenticator'
 import { HashManager } from '../../../services/HashManager'
@@ -13,7 +13,7 @@ import { CreateUserValidator } from './CreateUserValidator'
 
 export class CreateUserUseCase {
   constructor(
-    private usersRepository: IUsersReposity,
+    private usersRepository: IUsersRepository,
     private validator: CreateUserValidator,
     private idGenerator: IdGenerator,
     private hashManager: HashManager,
@@ -34,8 +34,8 @@ export class CreateUserUseCase {
     const passwordHash = await this.hashManager.hash(validData.password)
 
     const user = new User({ ...validData, password: passwordHash }, id)
-    this.usersRepository.save(user)
-    this.usersRepository.destroy()
+    await this.usersRepository.save(user)
+    await this.usersRepository.destroy()
 
     const token = this.authenticator.generateToken({
       id: user.id,

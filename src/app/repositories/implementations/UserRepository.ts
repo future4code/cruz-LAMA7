@@ -1,8 +1,8 @@
 import { User } from '../../entities/User'
-import { IUsersReposity } from '../IUsersRepository'
+import { IUsersRepository } from '../IUsersRepository'
 import { BaseRepository } from './BaseRepository'
 
-export class UserRepository extends BaseRepository implements IUsersReposity {
+export class UserRepository extends BaseRepository implements IUsersRepository {
   private static TABLE_NAME = 'lama_usuarios'
   private connection = this.getConnection()
   private userTable = () => this.connection(UserRepository.TABLE_NAME)
@@ -18,13 +18,21 @@ export class UserRepository extends BaseRepository implements IUsersReposity {
   public async findByEmail(email: string): Promise<User> {
     const result = await this.userTable().where({ email })
 
-    return User.toUserModel(result[0])
+    if (result.length > 0) {
+      return User.toUserModel(result[0])
+    }
+
+    return result[0]
   }
 
   public async find(id: string): Promise<User> {
     const result = await this.userTable().where({ id })
 
-    return User.toUserModel(result[0])
+    if (result.length > 0) {
+      return User.toUserModel(result[0])
+    }
+
+    return result[0]
   }
 
   public async destroy(): Promise<void> {

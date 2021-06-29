@@ -18,9 +18,13 @@ export class ShowRepository extends BaseRepository implements IShowsRepository {
   public async findByDate(week_day: string): Promise<Array<Show>> {
     const result = await this.showTable().where({ week_day })
 
-    return result.map((show) => {
-      return Show.toShowModel(show)
-    })
+    if (result.length > 0) {
+      return result.map((show) => {
+        return Show.toShowModel(show)
+      })
+    }
+
+    return result
   }
 
   public async destroy(): Promise<void> {

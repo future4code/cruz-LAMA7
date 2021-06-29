@@ -18,13 +18,21 @@ export class BandRepository extends BaseRepository implements IBandsRepository {
   public async findById(id: string): Promise<Band> {
     const result = await this.bandTable().where({ id })
 
-    return Band.toBandModel(result[0])
+    if (result.length > 0) {
+      return Band.toBandModel(result[0])
+    }
+
+    return result[0]
   }
 
   public async findByName(name: string): Promise<Band> {
     const result = await this.bandTable().where({ name })
 
-    return Band.toBandModel(result[0])
+    if (result.length > 0) {
+      return Band.toBandModel(result[0])
+    }
+
+    return result[0]
   }
 
   public async destroy(): Promise<void> {
